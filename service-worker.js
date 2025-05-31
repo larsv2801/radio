@@ -4,6 +4,9 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '/radio/index.html',
         '/radio/manifest.json',
+        '/radio/logo144.png',
+        '/radio/logo192.png',
+        '/radio/logo512.png'
       ]);
     })
   );
