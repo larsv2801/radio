@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio 4</title>
+  <style>
+    body{
+        font-family:arial;
+        text-align:center;
+        align-items: center;
+        justify-content:center;
+        background: linear-gradient(45deg, #141E30, #243B55);
+        overflow: hidden;
+        transition:0.3s;
+    }
+
+
+audio {
+  padding:0.3vw;
+  background-color: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  position:absolute;
+  top:52%;
+  left:60%;
+  transform: translate(-50%,-50%);
+  width:30vw;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: white;
+  backdrop-filter: blur(15px);
+  border-radius: 30px;
+}
+
+audio::-webkit-media-controls-play-button {
+  background-color: #9cacbe;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+audio::-webkit-media-controls-play-button:hover {
+  background-color: #425f80;
+}
+
+
+
+    h1{
+        color:#9cacbe;
+        position:absolute;
+        top:29%;
+        font-size:8vw;
+        left:60%;
+        transform: translate(-50%,-50%);
+        text-align:center;
+    }
+
+    #plaat{
+      width:90vh;
+      height:90vh;
+      position:absolute;
+      left:0%;
+      top:50%;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background:url("https://static.wixstatic.com/media/5986cb_0adcf65725864913aa11ed625e98e873~mv2.png/v1/fit/w_558,h_558,q_90/5986cb_0adcf65725864913aa11ed625e98e873~mv2.png");
+      background-size:cover;
+      animation: draaiplaat 4s linear infinite;
+      transition:0.3s;
+    }
+    @keyframes draaiplaat {
+      from{
+        transform:translate(-50%,-50%) rotate(0deg);
+      } 
+      to {
+        transform:translate(-50%,-50%) rotate(360deg);
+      }
+    }
+
+    #binnenplaat{
+      width:31vh;
+      height:31vh;
+      position:absolute;
+      left:0%;
+      top:50%;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background-size:cover;
+      transition:0.3s;
+      background-color: white;
+      background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Studio_Brussel_logo.png/1200px-Studio_Brussel_logo.png");
+      background-size: cover;
+      background-position: center;
+    }
+    #platenspeler{
+      width:30vw;
+      height:30vw;
+      background:url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/390561/needle-2.png");
+      position:absolute;
+      left:4%;
+      top:35%;
+      transform:rotate(25deg) translate(-50%,-50%);
+      background-size:cover;
+      z-index:999;
+      transition:0.3s;
+      display:flex;
+    }  
+    
+    img{
+      width:8.5vw;
+      height:8.5vw;
+      border-radius:50%;
+      transition:0.3s;
+    }
+
+    @media only screen and (max-width: 600px) {
+      #plaat{
+        width:75vw;
+        height:75vw;
+        position:absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+      }
+      body{
+        overflow:hidden;
+      }
+      audio{
+        width:90vw;
+        padding:1.5vw;
+        border-radius: 25px 25px 0px 0px;
+        position:absolute;
+        top:100%;
+        left:50%;
+        transform: translate(-50%,-100%);
+        background-color: rgb(255, 255, 255);
+      }
+      h1{
+        font-size:10vw;
+        position:absolute;
+        top:5%;
+        left:50%;
+      }
+      #platenspeler{
+      width:50vw;
+      height:50vw;
+      background:url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/390561/needle-2.png");
+      position:absolute;
+      left:50%;
+      top:45%;
+      transform: rotate(25deg) translate(-50%,-50%);
+      background-size:cover;
+      z-index:999;
+      display:flex;
+      transition:0.3s;
+    }  
+    #binnenplaat{
+      width:25.5vw;
+      height:25.5vw;
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      background-size:cover;
+      transition:0.3s;
+      background-color: white;
+      background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Studio_Brussel_logo.png/1200px-Studio_Brussel_logo.png");
+      background-size: cover;
+      background-position: center;
+    }
+    }
+    </style>
+</head>
+<body>
+  <h1 id="zendertitel">Stu Bru</h1>
+  <br>
+  <br>
+  <div onclick="pauze()"id="platenspeler"></div>
+  <div onclick="veranderzender()"id="plaat"></div>
+  <div onclick="veranderzender()" id="binnenplaat"><!--<img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Studio_Brussel_logo_%282023-%29.svg">--></div>
+    <audio id="radioaudio" controls src="https://icecast.vrtcdn.be/stubru-high.mp3"></audio>
+
+
+<script>
+  
+  const links = ["https://icecast.vrtcdn.be/stubru-high.mp3","http://icecast.vrtcdn.be/mnm-high.mp3", "http://icecast.vrtcdn.be/radio1-high.mp3", "http://icecast.vrtcdn.be/ra2ovl-high.mp3"];
+  const titels = ["Stu Bru","MNM", "Radio 1", "Radio 2"];
+  const logos = ["https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Studio_Brussel_logo.png/1200px-Studio_Brussel_logo.png","https://cdn.uc.assets.prezly.com/a3bfeeda-c44b-47e2-b261-97faa9196fff/-/crop/1081x1080/420,0/-/preview/","https://www.vrt.be/nl/assets/styles/hero/public/images/2025-02/R1-Logo-primary-stacked-violet-on-gradient-rgb.png?itok=SEyofUlb","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmzQCPp7-4PhaT16R_F5WaCQQg1CSfyJ21hQ&s"];
+  nummer = 0;
+
+  function veranderzender(){
+    nummer++;
+    if(nummer > links.length - 1){
+      nummer = 0;
+    }
+    document.getElementById("zendertitel").innerHTML = titels[nummer];
+    document.getElementById("radioaudio").src = links[nummer];
+    document.getElementById("binnenplaat").style.background = `url(${logos[nummer]})`;
+    document.getElementById("binnenplaat").style.backgroundSize = "cover";
+    document.getElementById("binnenplaat").style.backgroundPosition = "center";
+    document.getElementById("radioaudio").play();
+  }
+  
+
+  var pause = 0;
+  function pauze(){
+    if(pause === 0){
+      pause = 1;
+      document.getElementById("platenspeler").style.transform = 'rotate(-5deg) translate(-10%,-40%)';
+      document.getElementById("radioaudio").muted = true;
+    } else{
+      document.getElementById("platenspeler").style.transform = 'rotate(25deg) translate(-50%,-50%)';
+      pause = 0;
+      document.getElementById("radioaudio").muted = false;
+    }
+  }
+
+</script>
+
+
+</body>
+</html>
